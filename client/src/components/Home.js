@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import MasoomContract from '../contracts/MasoomContract.json'
 import getWeb3 from '../getWeb3'
+import Navigation from './Navigation'
+import NavigationAdmin from './NavigationAdmin'
 
 const Home = () => {
   const [owner, setOwner] = useState('')
@@ -23,11 +25,10 @@ const Home = () => {
       )
       setWeb3(web3)
 
-
       setAccount(accounts[0])
       setConract(instance)
 
-      const res = await instance.methods.getOwner().call();
+      const res = await instance.methods.getOwner().call()
       setOwner(res)
       console.log(res)
       //setEnd(e)
@@ -38,24 +39,25 @@ const Home = () => {
     init()
   }, [])
 
-  useState(() => {
-    const getOwner = async () => {}
-    getOwner()
-  }, [contract])
   if (!web3) {
     return <div>loading web3, accounts and contracts</div>
   } else {
     return (
       <div>
-        Hello samrat ghale
+        {isOwner ? (
+          <div>
+            <NavigationAdmin />
+            <div>You are the owner</div>
+          </div>
+        ) : (
+          <div>
+            <Navigation />
+            you are not the owner
+          </div>
+        )}
         <div>
           Your user address is {account} your owner is {owner}
         </div>
-        {isOwner ? (
-          <div>You are the owner</div>
-        ) : (
-          <div> you are not the owner</div>
-        )}
       </div>
     )
   }
