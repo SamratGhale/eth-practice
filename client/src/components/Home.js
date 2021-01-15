@@ -19,22 +19,21 @@ const Home = () => {
       const deployedNetwork = MasoomContract.networks[networkId]
       const instance = new web3.eth.Contract(
         MasoomContract.abi,
-        deployedNetwork && deployedNetwork.address,
+        deployedNetwork.address,
       )
-      console.log(instance)
-      instance.options.address = accounts[1]
       setWeb3(web3)
 
-      //setOwner(res)
 
       setAccount(accounts[0])
       setConract(instance)
 
-      const e = await instance.methods.getEnd().call()
+      const res = await instance.methods.getOwner().call();
+      setOwner(res)
+      console.log(res)
       //setEnd(e)
-      //if (accounts[0] === res) {
-      //  setIsOwner(true)
-      //}
+      if (accounts[0] === res) {
+        setIsOwner(true)
+      }
     }
     init()
   }, [])

@@ -1,5 +1,5 @@
-// SPDX-License-Identifier: MIT
-pragma solidity >=0.4.17 <0.9.0;
+// SPDX-License-Identifier: MIT 
+pragma solidity >=0.5.16 <0.9.0;
 
 contract MasoomContract {
   address public owner;
@@ -15,6 +15,7 @@ contract MasoomContract {
     start = false;
     end = false;
   }
+
   function getOwner() public view returns(address){
     return owner;
   }
